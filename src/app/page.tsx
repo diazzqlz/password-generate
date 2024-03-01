@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Copy } from 'lucide-react'
 import { Key } from "lucide-react";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
     includeSpecialChars: true
   })
 
-  function gerarSenha(tamanho: number): string {
+  function generatePassword(size: number): string {
     let caracteres = '';
     if (options.includeLowercase) caracteres += 'abcdefghijklmnopqrstuvwxyz'
     if (options.includeUppercase) caracteres += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -23,15 +23,15 @@ export default function Home() {
     if (options.includeSpecialChars) caracteres += '!@#$%^&*()-_'
 
     let senha = '';
-    for (let i = 0; i < tamanho; i++) {
+    for (let i = 0; i < size; i++) {
         const indice = Math.floor(Math.random() * caracteres.length);
         senha += caracteres.charAt(indice);
     }
     return senha;
   }
 
-  const gerarNovaSenha = () => {
-    const newPassword = gerarSenha(12);
+  const generateNewPassword = () => {
+    const newPassword = generatePassword(12);
     setPassword(newPassword);
   };
 
@@ -42,7 +42,7 @@ export default function Home() {
     }))
   }
 
-  const copiarSenha = () => {
+  const copyPassword = () => {
     navigator.clipboard.writeText(password).then(notify)
   };
 
@@ -53,7 +53,7 @@ export default function Home() {
   return (
     <div className="text-white">
       <ToastContainer/>
-      <header className="mt-4">
+      <header className="p-5">
         <h1 className="flex items-center justify-center mb-4 text-4xl">Gerador de Senhas</h1>
         <span className="flex justify-center gap-3">
           <Copy size={24}/> para copiar sua senha.
@@ -64,8 +64,8 @@ export default function Home() {
       <div className="text-2xl flex justify-center items-center max-w-[640px] mx-auto mt-20 bg-gray-700 p-[9px] rounded-full">
         {password}
         <div className="flex ml-10 gap-4">
-          <Copy onClick={copiarSenha} cursor="pointer" size={25}/>
-          <Key onClick={gerarNovaSenha} cursor="pointer" size={25}/>
+          <Copy onClick={copyPassword} cursor="pointer" size={25}/>
+          <Key onClick={generateNewPassword} cursor="pointer" size={25}/>
         </div>
       </div>
 
