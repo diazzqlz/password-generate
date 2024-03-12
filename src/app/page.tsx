@@ -6,6 +6,10 @@ import { Key } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+import { notify } from "@/services/notify";
+
+import Header from '@/components/Header'
+
 export default function Home() {
   const [password, setPassword] = useState<string>('')
   const [options, setOptions] = useState({
@@ -46,20 +50,10 @@ export default function Home() {
     navigator.clipboard.writeText(password).then(notify)
   };
 
-  function notify() {
-    toast.success("Senha copiada para a área de transferência!")
-  }
-
   return (
     <div className="text-white">
       <ToastContainer/>
-      <header className="p-5">
-        <h1 className="flex items-center justify-center mb-4 text-4xl">Gerador de Senhas</h1>
-        <span className="flex justify-center gap-3">
-          <Copy size={24}/> para copiar sua senha.
-          <Key size={24}/> para gerar sua senha.
-        </span> 
-      </header>
+      <Header/>
 
       <div className="text-2xl flex justify-center items-center max-w-[640px] mx-auto mt-20 bg-gray-700 p-[9px] rounded-full">
         {password}
